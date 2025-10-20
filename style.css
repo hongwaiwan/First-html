@@ -1,0 +1,106 @@
+/* Reset some default spacing */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f5f5;
+}
+
+/* Navigation bar */
+nav {
+  background: linear-gradient(90deg, #ff7e5f, #feb47b);
+  color: white;
+  padding: 15px 30px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin-right: 20px;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: #333;
+  text-decoration: underline;
+}
+
+/* Page layout */
+.container {
+  display: flex;
+  margin: 30px;
+  gap: 20px;
+  flex-wrap: wrap; /* responsive wrapping for smaller screens */
+}
+
+/* Left column (main content) */
+.main {
+  flex: 3;
+  background-color: #ffefd5;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* Hover effect for main */
+.main:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+/* Right column (sidebar) */
+.sidebar {
+  flex: 1;
+  background-color: #d1e8ff;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* Hover effect for sidebar */
+.sidebar:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+/* Buttons */
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  background: linear-gradient(45deg, #ff7e5f, #feb47b);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.3s, background 0.3s;
+}
+
+.button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(45deg, #feb47b, #ff7e5f);
+}
+
+/* Footer */
+footer {
+  background: linear-gradient(90deg, #43cea2, #185a9d);
+  color: white;
+  text-align: center;
+  padding: 15px;
+  margin-top: 30px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* Headings */
+h1 {
+  color: #ff4e50;
+}
+
+h2 {
+  color: #1e90ff;
+}

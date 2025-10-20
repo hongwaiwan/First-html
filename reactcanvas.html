@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Canvas Drawing in React</title>
+  <style>
+    #myCanvas {
+      border: 2px solid black;
+      cursor: crosshair;
+      display: block;
+      margin-bottom: 10px;
+    }
+    .controls {
+      margin-bottom: 10px;
+    }
+    label {
+      margin-right: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <!-- React and ReactDOM -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+  <!-- Babel for JSX -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- React Canvas App -->
+  <script type="text/babel">
+    const { useState, useRef, useEffect } = React;
+
+    function CanvasApp() {
+      const canvasRef = useRef(null);
+      const [color, setColor] = useState("#0000ff");
+      const [brushSize, setBrushSize] = useState(3);
+      const drawing = useRef(false);
+
+      // Mouse events
+      useEffect(() => {
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext("2d");
+
+        const startDrawing = () => { drawing.current = true; };
+        const stopDrawing = () => {
+          drawing.current = false;
+          ctx.beginPath();
+        };
+        const draw = (e) => {
+          if (!drawing.current) return;
+          ctx.lineWidth = brushSize;
+          ctx.lineCap = "round";
+          ctx.strokeStyle = color;
+          ctx.lineTo(e.offsetX, e.offsetY);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(e.offsetX, e.offsetY);
+        };
+
+        canvas.addEventListener("mousedown", startDrawing);
+        canvas.addEventListener("mouseup", stopDrawing);
+        canvas.addEventListener("mouseleave", stopDrawing);
+        canvas.addEventListener("mousemove", draw);
+
+        // Cleanup
+        return () => {
+          canvas.removeEventListener("mousedown", startDrawing);
+          canvas.removeEventListener("mouseup", stopDrawing);
+          canvas.removeEventListener("mouseleave", stopDrawing);
+          canvas.removeEventListener("mousemove", draw);
+        };
+      }, [color, brushSize]);
+
+      // Clear canvas
+      const clearCanvas = () => {
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext("2d");
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      };
+
+      return (
+        <div>
+          <h2>React Canvas Drawing</h2>
+          <div className="controls">
+            <label>Color:</label>
+            <input type="color" value={color} onChange={e => setColor(e.target.value)} />
+            <label>Brush Size:</label>
+            <input type="number" min="1" max="50" value={brushSize} onChange={e => setBrushSize(parseInt(e.target.value))} />
+            <button onClick={clearCanvas}>Clear Canvas</button>
+          </div>
+          <canvas id="myCanvas" ref={canvasRef} width="600" height="400"></canvas>
+        </div>
+      );
+    }
+
+    // Render React App
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<CanvasApp />);
+  </script>
+</body>
+</html>
