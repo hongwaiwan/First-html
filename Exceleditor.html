@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel File Editor</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handsontable/12.4.0/handsontable.full.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/handsontable/12.4.0/handsontable.full.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px 30px;
+        }
+        h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .subtitle {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+        .toolbar {
+            padding: 20px 30px;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e9ecef;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #5568d3;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        .btn-success {
+            background: #10b981;
+            color: white;
+        }
+        .btn-success:hover {
+            background: #059669;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+        }
+        .btn-danger {
+            background: #ef4444;
+            color: white;
+        }
+        .btn-danger:hover {
+            background: #dc2626;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+        }
+        .btn-secondary {
+            background: #6b7280;
+            color: white;
+        }
+        .btn-secondary:hover {
+            background: #4b5563;
+            transform: translateY(-1px);
+        }
+        .btn-info {
+            background: #3b82f6;
+            color: white;
+        }
+        .btn-info:hover {
+            background: #2563eb;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+        }
+        input[type="file"] {
+            display: none;
+        }
+        .file-input-label {
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .file-input-label:hover {
+            background: #5568d3;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        .spreadsheet-container {
+            padding: 30px;
+            overflow: auto;
+        }
+        #spreadsheet {
+            width: 100%;
+            height: 600px;
+        }
+        .info-box {
+            background: #e0e7ff;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin: 20px 30px;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #3730a3;
+        }
+        .sheet-tabs {
+            padding: 10px 30px;
+            background: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+            display: flex;
+            gap: 5px;
+            overflow-x: auto;
+            align-items: center;
+        }
+        .sheet-tab {
+            padding: 8px 16px;
+            background: white;
+            border: 1px solid #d1d5db;
+            border-radius: 4px 4px 0 0;
+            cursor: pointer;
+            font-size: 13px;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .sheet-tab:hover {
+            background: #f3f4f6;
+        }
+        .sheet-tab.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        .sheet-tab .delete-btn {
+            background: none;
+            border: none;
+            color: #ef4444;
+            cursor: pointer;
+            padding: 2px 4px;
+            font-size: 16px;
+            line-height: 1;
+            border-radius: 3px;
+            transition: all 0.2s ease;
+        }
+        .sheet-tab.active .delete-btn {
+            color: white;
+        }
+        .sheet-tab .delete-btn:hover {
+            background: rgba(239, 68, 68, 0.1);
+        }
+        .sheet-tab.active .delete-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .add-sheet-btn {
+            padding: 8px 12px;
+            background: #10b981;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 18px;
+            line-height: 1;
+            transition: all 0.2s ease;
+        }
+        .add-sheet-btn:hover {
+            background: #059669;
+            transform: scale(1.1);
+        }
+        .icon {
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+        }
+        .toolbar-divider {
+            width: 1px;
+            height: 30px;
+            background: #d1d5db;
+            margin: 0 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Excel File Editor</h1>
+            <p class="subtitle">Create, read, edit and export Excel files with ease</p>
+        </div>
+        
+        <div class="toolbar">
+            <button class="btn-info" onclick="newExcelFile()">
+                <span class="icon">📄</span>
+                New Excel File
+            </button>
+            
+            <label for="fileInput" class="file-input-label">
+                <span class="icon">📂</span>
+                Open Excel File
+            </label>
+            <input type="file" id="fileInput" accept=".xlsx, .xls">
+            
+            <button class="btn-success" onclick="downloadExcel()">
+                <span class="icon">📥</span>
+                Save as Excel
+            </button>
+            
+            <button class="btn-success" onclick="saveExcel()">
+                <span class="icon">💾</span>
+                Save
+            </button>
+            <div class="toolbar-divider"></div>
+            
+            <button class="btn-primary" onclick="addRow()">
+                <span class="icon">➕</span>
+                Add Row
+            </button>
+            
+            <button class="btn-primary" onclick="addColumn()">
+                <span class="icon">➕</span>
+                Add Column
+            </button>
+            
+            <button class="btn-danger" onclick="clearAll()">
+                <span class="icon">🗑️</span>
+                Clear All
+            </button>
+            
+            <div class="toolbar-divider"></div>
+            
+            <button class="btn-secondary" onclick="addNewSheet()">
+                <span class="icon">📑</span>
+                Add Sheet
+            </button>
+        </div>
+
+        <div class="info-box">
+            <strong>💡 Quick Tips:</strong> Double-click cells to edit • Right-click for context menu • Drag column borders to resize • Use Ctrl+C/V to copy/paste • Click × on sheet tabs to delete them
+        </div>
+
+        <div class="spreadsheet-container">
+            <div id="spreadsheet"></div>
+        </div>
+
+        <div class="sheet-tabs" id="sheetTabs"></div>
+    </div>
+
+    <script src="Exceleditor.JS"></script>
+</body>
+</html>
