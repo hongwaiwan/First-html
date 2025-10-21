@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PayNow QR Generator</title>
+<style>
+body { font-family: Arial; margin: 20px; }
+table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
+th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+input, select { width: 100%; }
+button { padding: 8px 16px; margin: 10px 0; }
+#qrcode { margin-top: 10px; }
+#qrString { font-family: monospace; white-space: pre-wrap; word-wrap: break-word; margin-top: 10px; }
+</style>
+</head>
+<body>
+
+<h2>PayNow QR Generator</h2>
+
+<table id="inputTable">
+  <thead>
+    <tr>
+      <th>Proxy Type (2=UEN 0=Mobile)</th>
+      <th>Proxy Value</th>
+      <th>Amount</th>
+      <th>Reference</th>
+      <th>Merchant Name</th>
+      <th>Merchant City</th>
+      <th>Editable (0=No 1=Yes)</th>
+      <th>Expiry Date (optional YYYYMMDDHHMMSS)</th>
+    </tr>
+  </thead>
+  <tbody id="tableBody">
+    <tr>
+      <td>
+        <select>
+          <option value="0">Mobile</option>
+          <option value="2">UEN</option>
+        </select>
+      </td>
+      <td><input value=""></td>
+      <td><input value=""></td>
+      <td><input value=""></td>
+      <td><input value=""></td>
+      <td><input value=""></td>
+    <!--  <td><input value="1"></td> -->
+      <td>
+        <select>
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+        </select>
+      </td>
+      <td><input value=""></td>
+    </tr>
+  </tbody>
+</table>
+
+<button id="generateBtn">Generate QR</button>
+
+<h3>Generated QR String:</h3>
+<pre id="qrString"></pre>
+
+<h3>QR Code:</h3>
+<div id="qrcode"></div>
+<p><a href="index.html">← Back to Home</a></p>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+<script>
+function crc16(payload) {
+    let crc = 0xFFFF;
+    for(let i=0;i<payload.length;i++){
+        crc ^= payload.charCodeAt(i)<<8;
+        for(let j=0;j<8;j++){
+            if(crc & 0x8000) crc=(crc<<1)^0x1021;
+            else crc<<=1;
+            crc&=0xFFFF;
+        }
+    }
+    return crc.toString(16).toUpperCase().padStart(4,'0');
+}
+
+function emv(id,value){
+    return id + value.length.toString().padStart(2,'0') + value;
+}
+
+document.getElementById('generateBtn').addEventListener('click', ()=>{
+    const row = document.getElementById('tableBody').rows[0];
+    let proxyType = row.cells[0].querySelector('select').value.trim();
+    let proxyValue = row.cells[1].querySelector('input').value.trim();
+    if(proxyType==="0") proxyValue = proxyValue.startsWith('+65') ? proxyValue : '+65'+proxyValue;
+
+    let amount = parseFloat(row.cells[2].querySelector('input').value.trim());
+    let reference = row.cells[3].querySelector('input').value.trim();
+    let merchant = row.cells[4].querySelector('input').value.trim();
+    let city = row.cells[5].querySelector('input').value.trim();
+    //let sub03 = row.cells[6].querySelector('input').value.trim() || "1";
+    let sub03 = row.cells[6].querySelector('select').value.trim() || "1";
+    let sub04 = row.cells[7].querySelector('input').value.trim(); // optional expiry
+
+    const merchantInfo = emv("00","SG.PAYNOW")+
+                         emv("01",proxyType)+
+                         emv("02",proxyValue)+
+                         emv("03",sub03)+
+                         (sub04 ? emv("04",sub04) : "");
+
+    const merchantField = "26" + merchantInfo.length.toString().padStart(2,'0') + merchantInfo;
+
+    let addDataField = "";
+    if(reference){
+        const refTlv = emv("01", reference);
+        addDataField = "62" + refTlv.length.toString().padStart(2,'0') + refTlv;
+    }
+
+    const payload = "000201010212"+merchantField+
+                    emv("52","0000")+
+                    emv("53","702")+
+                    emv("54",amount.toFixed(2))+
+                    "5802SG"+
+                    emv("59",merchant)+
+                    emv("60",city)+
+                    addDataField+
+                    "6304";
+
+    const crcHex = crc16(payload);
+    const qrString = payload + crcHex;
+
+    document.getElementById('qrString').textContent = qrString;
+
+    const qrDiv = document.getElementById('qrcode');
+    qrDiv.innerHTML = '';
+    new QRCode(qrDiv, {
+        text: qrString,
+        width: 300,
+        height: 300,
+        correctLevel: QRCode.CorrectLevel.L
+    });
+});
+</script>
+
+</body>
+</html>

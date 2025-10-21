@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>QR Code Generator</title>
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+    }
+    input {
+      width: 300px;
+      padding: 8px;
+    }
+    button {
+      padding: 8px 16px;
+      margin-left: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #0078d7;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #005fa3;
+    }
+    #qrcode {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h2>🔲 QR Code Generator</h2>
+  <input type="text" id="text" placeholder="Enter text or URL">
+  <button id="generateBtn">Generate QR</button>
+  <div id="qrcode"></div>
+  <p><a href="index.html">← Back to Home</a></p>
+
+  <script>
+    const qrcodeContainer = document.getElementById('qrcode');
+    const input = document.getElementById('text');
+    const btn = document.getElementById('generateBtn');
+
+    btn.addEventListener('click', () => {
+      qrcodeContainer.innerHTML = ""; // clear previous QR
+      const text = input.value.trim();
+      if (text) {
+        new QRCode(qrcodeContainer, {
+          text: text,
+          width: 400,
+          height: 400,
+          correctLevel: QRCode.CorrectLevel.L // Lowest error correction
+        });
+      } else {
+        alert("Please enter text or URL");
+      }
+    });
+  </script>
+</body>
+</html>
