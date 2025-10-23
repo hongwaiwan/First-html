@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Einstein's Relativity Explained</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: radial-gradient(circle at center, #000 60%, #111 100%);
+      color: #fff;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    .slide {
+      display: none;
+      height: 100vh;
+      padding: 4rem;
+      text-align: center;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    .active {
+      display: block;
+      animation: fade 1s;
+    }
+
+    @keyframes fade {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    h1 {
+      font-size: 3em;
+      margin-bottom: 0.5em;
+    }
+
+    p {
+      font-size: 1.5em;
+      line-height: 1.4;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .nav {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      text-align: center;
+    }
+
+    button {
+      background: #111;
+      color: #fff;
+      border: 2px solid #fff;
+      border-radius: 8px;
+      font-size: 1.2em;
+      padding: 0.5em 1.5em;
+      margin: 0 10px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #333;
+    }
+
+    button:focus {
+      outline: 2px solid #00faff;
+    }
+
+    svg {
+      width: 90%;
+      max-width: 700px;
+      height: auto;
+      margin: 2rem auto;
+      display: block;
+    }
+
+    .light-path {
+      stroke: #00faff;
+      stroke-width: 3;
+      fill: none;
+      animation: pulse 2s infinite alternate;
+    }
+
+    @keyframes pulse {
+      from {opacity: 0.3;}
+      to {opacity: 1;}
+    }
+
+    .page-number {
+      position: absolute;
+      bottom: 60px;
+      right: 20px;
+      font-size: 1.2em;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Title Page -->
+  <div class="slide active">
+    <h1>Einstein’s Relativity Explained</h1>
+    <p>From Newton’s simple laws to Einstein’s deep insights into space, time, and gravity.</p>
+    <svg viewBox="0 0 600 200" role="img" aria-label="Title: Special & General Relativity">
+      <text x="300" y="100" font-size="40" fill="#00faff" text-anchor="middle">Special & General Relativity</text>
+      <text x="230" y="150" font-size="20" fill="#ccc">by Albert Einstein</text>
+    </svg>
+  </div>
+
+  <!-- Newton -->
+  <div class="slide">
+    <h1>Newton’s Classical World</h1>
+    <p>Newton described motion with simple laws [1687]<br><strong>F = ma</strong> explains how forces make things move. <br>Time and space were absolute for everyone.</p>
+    <svg viewBox="0 0 500 250" role="img" aria-label="Newton's force diagram">
+      <circle cx="150" cy="150" r="25" fill="orange" />
+      <text x="140" y="155" font-size="20" fill="#000">m</text>
+      <line x1="180" y1="150" x2="250" y2="150" stroke="white" stroke-width="2" marker-end="url(#arrow)" />
+      <text x="200" y="140" fill="white" font-size="24">a</text>
+      <text x="60" y="155" fill="white" font-size="24">F --→</text>
+      <defs>
+        <marker id="arrow" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 Z" fill="white" />
+        </marker>
+      </defs>
+    </svg>
+  </div>
+
+  <!-- Maxwell -->
+  <div class="slide">
+    <h1>Maxwell’s Light</h1>
+    <p>James Clerk Maxwell showed that light is an electromagnetic wave governed by these equations: [1865]</p>
+    <p>
+      ∇·E = ρ/ε₀<br>
+      ∇·B = 0<br>
+      ∇×E = −∂B/∂t<br>
+      ∇×B = μ₀J + μ₀ε₀∂E/∂t
+    </p>
+    <p>From these, the speed of light is found as: <strong>v = 1 / √(μ₀ε₀)</strong></p>
+    <svg viewBox="0 0 600 200" role="img" aria-label="Electric and magnetic fields diagram">
+      <path d="M0 100 Q50 50 100 100 T200 100 T300 100 T400 100 T500 100 T600 100" stroke="#ffcc00" stroke-width="3" fill="none" />
+      <path d="M0 100 Q50 150 100 100 T200 100 T300 100 T400 100 T500 100 T600 100" stroke="#00ccff" stroke-width="3" fill="none" />
+      <text x="10" y="30" fill="white">Electric & Magnetic Fields</text>
+    </svg>
+  </div>
+
+  <!-- Puzzle -->
+  <div class="slide">
+    <h1>The Puzzle</h1>
+    <p>What happens if someone moves near the speed of light?<br>Does light look faster or slower?<br>This mystery led Einstein to rethink space and time.</p>
+    <svg viewBox="0 0 500 250" role="img" aria-label="Spaceship near light speed">
+      <circle cx="150" cy="140" r="20" fill="grey" />
+      <rect x="50" y="120" width="100" height="40" fill="#444" />
+      <line x1="50" y1="140" x2="160" y2="140" stroke="grey" stroke-width="6" marker-end="url(#arrow)" />
+      <circle cx="80" cy="100" r="10" fill="yellow" />
+      <text x="200" y="110" fill="white">Spaceship near light speed →</text>
+      <defs>
+        <marker id="arrow" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+          <path d="M0,0 L10,5 L0,10 Z" fill="grey"/>
+        </marker>
+      </defs>
+    </svg>
+  </div>
+
+  <!-- Special Relativity -->
+  <div class="slide">
+    <h1>Special Relativity — The Light Clock</h1>
+    <p>"On the Electrodynamics of Moving Bodies" [1905]</p>
+    <p>A traveler moves near light speed with a photon bouncing up and down:</p>
+    <ul style="text-align:left; max-width:650px; margin:0 auto; font-size:1.2em;">
+      <li><strong>Traveler’s view (proper frame):</strong> Light goes straight up and down. Time interval measured: Δt₀.</li>
+      <li><strong>Observer’s view (lab frame):</strong> Light travels diagonally because the traveler moves horizontally at velocity v.</li>
+      <li>From the right triangle of the light path: <br>
+          <em>(c Δt)² = (v Δt)² + (c Δt₀)²</em></li>
+      <li>Solving for Δt gives <strong>time dilation</strong>: <br>
+          Δt = Δt₀ / √(1 − v²/c²)</li>
+    </ul>
+
+    <svg viewBox="0 0 600 300" role="img" aria-label="Light clock diagram showing time dilation">
+      <!-- Traveler's vertical light path -->
+      <line x1="150" y1="50" x2="150" y2="250" stroke="#ffcc00" stroke-width="2" />
+      <circle cx="150" cy="80" r="8" fill="#ffcc00">
+        <animate attributeName="cy" values="80;230;80" dur="2s" repeatCount="indefinite" />
+      </circle>
+      <text x="160" y="150" fill="#ffcc00">c Δt₀</text>
+      <text x="120" y="40" fill="white">Traveler’s view</text>
+
+      <!-- Observer's diagonal light path -->
+      <line x1="350" y1="50" x2="550" y2="250" stroke="#ffffff" stroke-width="2" />
+      <circle cx="350" cy="50" r="8" fill="#ffffff">
+        <animate attributeName="cx" values="350;550;350" dur="2s" repeatCount="indefinite" />
+        <animate attributeName="cy" values="50;250;50" dur="2s" repeatCount="indefinite" />
+      </circle>
+      <text x="460" y="150" fill="#ffffff">c Δt</text>
+      <text x="400" y="40" fill="white">Observer’s view</text>
+
+      <!-- Horizontal velocity arrow v -->
+      <line x1="350" y1="260" x2="550" y2="260" stroke="#00ffff" stroke-width="2" marker-end="url(#arrowV)" />
+      <text x="430" y="250" fill="#00ffff">v Δt</text>
+
+      <defs>
+        <marker id="arrowV" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+          <path d="M0,0 L10,5 L0,10 Z" fill="cyan"/>
+        </marker>
+      </defs>
+    </svg>
+  </div>
+
+  <!-- Mass-Energy Equivalence -->
+  <div class="slide">
+    <h1>Deriving the Total Energy Equation</h1>
+    <p>From special relativity definitions:</p>
+    <ul style="text-align:left; max-width:650px; margin:0 auto; font-size:1.2em;">
+      <li><strong>E = γ m₀ c²</strong> and <strong>p = γ m₀ v</strong></li>
+      <li>Square both: E² = (γ m₀ c²)², p² = (γ m₀ v)²</li>
+      <li>Subtract: E² − p²c² = γ²m₀²(c⁴ − v²c²)</li>
+      <li>Using γ² = 1 / (1 − v²/c²) → <strong>E² − p²c² = m₀²c⁴</strong></li>
+      <li>Hence <strong>E² = (pc)² + (m₀c²)²</strong></li>
+      <li>At rest (p = 0) → <strong>E = m₀c²</strong></li>
+    </ul>
+    <svg viewBox="0 0 600 220" role="img" aria-label="Mass-energy equivalence diagram">
+      <text x="50" y="60" font-size="26" fill="#00faff">E² = (pc)² + (m₀ c²)²</text>
+      <text x="50" y="100" font-size="22" fill="#ffcc00">At rest → E = m₀ c²</text>
+      <line x1="60" y1="130" x2="540" y2="130" stroke="#ffcc00" stroke-width="2" />
+      <circle cx="500" cy="130" r="18" fill="#ffcc00"/>
+      <text x="492" y="135" font-size="20" fill="#000">m</text>
+    </svg>
+  </div>
+
+  <!-- General Relativity -->
+  <div class="slide">
+    <h1>General Relativity — Gravity as Curved Spacetime</h1>
+    <p>"The Field Equations of Gravitation" [1915]</p>
+    <p>Einstein realized that <strong>gravity and acceleration are indistinguishable</strong>:</p>
+    <ul style="text-align:left; max-width:650px; margin:0 auto; font-size:1.2em;">
+      <li>If a lift accelerates upward in space, objects fall to the floor.</li>
+      <li>If the lift is at rest on Earth, gravity pulls objects downward.</li>
+      <li>In both cases, a person feels the same force.</li>
+      <li>Therefore, <strong>being in a gravitational field is equivalent to being in an accelerating frame</strong>.</li>
+      <li>In an accelerating lift, a laser beam appears to curve downward.</li>
+      <li>Light bends in a gravitational field because spacetime itself is curved.</li>
+    </ul>
+    <svg viewBox="0 0 400 300" role="img" aria-label="Lift showing equivalence of gravity and acceleration">
+      <!-- Lift -->
+      <rect x="150" y="50" width="100" height="200" stroke="white" fill="none" stroke-width="2" />
+      <circle cx="200" cy="220" r="10" fill="yellow" />
+      
+      <!-- Light beam bending -->
+      <line x1="50" y1="60" x2="350" y2="60" stroke="red" stroke-width="3" />
+      <path d="M150 60 Q200 70 250 120" class="light-path" />
+      
+      <!-- Arrows showing acceleration -->
+      <line x1="370" y1="100" x2="370" y2="50" stroke="cyan" stroke-width="2" marker-end="url(#arrowAccel)" />
+      <text x="380" y="80" fill="cyan" font-size="14">Acceleration ↑ = Gravity ↓</text>
+
+      <defs>
+        <marker id="arrowAccel" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+          <path d="M0,0 L10,5 L0,10 Z" fill="cyan"/>
+        </marker>
+      </defs>
+
+      <text x="100" y="280" fill="white">Light bends down as lift rises</text>
+    </svg>
+  </div>
+
+  <!-- Bending Light -->
+  <div class="slide">
+    <h1>Bending Light</h1>
+    <p>Light bends in gravity because spacetime itself is curved.</p>
+    <svg viewBox="0 0 500 300" role="img" aria-label="Curving light in gravity">
+      <path d="M50 50 Q250 200 450 250" class="light-path">
+        <animate attributeName="d" dur="4s" repeatCount="indefinite"
+          values="M50 50 Q250 200 450 250; M50 50 Q250 180 450 250; M50 50 Q250 200 450 250" />
+      </path>
+      <circle cx="300" cy="120" r="50" fill="#ffcc00" />
+      <text x="285" y="125" font-size="20" fill="#000">sun</text>
+    </svg>
+    <p>The first observation of light curving due to the Sun’s gravity occurred during the total solar eclipse of May 29, 1919</p>
+  </div>
+
+  <!-- Universe Redefined -->
+  <div class="slide">
+    <h1>The Universe Redefined</h1>
+    <p>Matter tells spacetime how to curve.<br>Spacetime tells matter how to move.</p>
+    <svg viewBox="0 0 400 300" role="img" aria-label="Spacetime curvature diagram">
+      <defs>
+        <radialGradient id="gravityGradient" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#00faff" />
+          <stop offset="100%" stop-color="#000" />
+        </radialGradient>
+      </defs>
+      <circle cx="200" cy="150" r="100" fill="url(#gravityGradient)" />
+      <circle cx="200" cy="150" r="20" fill="#ffcc00" />
+      <text x="150" y="280" fill="white">Spacetime Curvature</text>
+    </svg>
+  </div>
+
+  <!-- Summary -->
+  <div class="slide">
+    <h1>Summary</h1>
+    <p><strong>1687 Newton:</strong> F = ma (absolute time & space)<br>
+    <strong>1865 Maxwell:</strong> Light speed constant<br>
+    <strong>1905 Einstein (Special):</strong> Space & time are relative<br>
+    <strong>1915 Einstein (General):</strong> Gravity = Curved spacetime</p>
+  </div>
+
+  <!-- Navigation -->
+  <div class="nav">
+    <button onclick="prevSlide()" role="button" aria-label="Previous Slide">◀ Prev</button>
+    <button onclick="nextSlide()" role="button" aria-label="Next Slide">Next ▶</button>
+  </div>
+
+  <!-- Page Number -->
+  <div class="page-number" id="pageNumber">1 / 13</div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const pageNumber = document.getElementById('pageNumber');
+    let index = 0;
+
+    function showSlide(i) {
+      slides.forEach((s, n) => s.classList.toggle('active', n === i));
+      pageNumber.textContent = `${i + 1} / ${slides.length}`;
+    }
+
+    function nextSlide() {
+      index = (index + 1) % slides.length;
+      showSlide(index);
+    }
+
+    function prevSlide() {
+      index = (index - 1 + slides.length) % slides.length;
+      showSlide(index);
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') nextSlide();
+      if (e.key === 'ArrowLeft') prevSlide();
+    });
+
+    showSlide(index);
+  </script>
+</body>
+</html>

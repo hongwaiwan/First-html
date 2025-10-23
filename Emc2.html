@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Einstein (1905) — Derivation of $E=mc^2$</title>
+  <style>
+    body{font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; max-width:900px; margin:40px auto; line-height:1.6; padding:0 20px; color:#111}
+    header{border-left:5px solid #4a90e2; padding-left:12px; margin-bottom:18px}
+    h1{font-size:1.6rem;margin:0}
+    pre{background:#f6f8fa;padding:12px;border-radius:6px;overflow:auto}
+    .boxed{background:#fbfbff;border:1px solid #eee;padding:12px;border-radius:8px}
+    .equation{font-family: 'Times New Roman', Times, serif; font-size:1.05rem; margin:8px 0}
+    .step{margin:16px 0}
+    svg{max-width:100%;height:auto}
+    footer{margin-top:28px;font-size:.9rem;color:#555}
+  </style>
+  <!-- MathJax for rendering LaTeX -->
+  <script>
+    window.MathJax = {
+      tex: {inlineMath: [['$','$'], ['\\(','\\)']]},
+      svg: {fontCache: 'global'}
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Einstein's 1905 derivation of <span style="font-family:serif">$E=mc^2$</span> — written in modern notation</h1>
+    <p style="margin:6px 0 0">This page reproduces the thought experiment and algebra Einstein used in his short 1905 paper "Does the inertia of a body depend upon its energy content?" and expresses the steps in today's notation.</p>
+  </header>
+
+  <section class="boxed">
+    <strong>Setup (thought experiment)</strong>
+    <ol>
+      <li>A body is initially at rest in inertial frame $S$.</li>
+      <li>The body emits two identical pulses of light in opposite directions; each pulse carries energy $L/2$, so the total emitted light energy (in frame $S$) is $L$.</li>
+      <li>Because the pulses are equal and opposite, the body remains at rest in $S$ (no net recoil).</li>
+    </ol>
+  </section>
+
+  <div class="step">
+    <h3>Step 1 — Conservation of energy in the rest frame $S$</h3>
+    <p>Let the body's energy before emission be $E_0$ and after emission $E_1$. Conservation of energy in $S$ gives</p>
+    <div class="equation">$E_0 = E_1 + L$. </div>
+  </div>
+
+  <div class="step">
+    <h3>Step 2 — Look from a frame $S'$ moving with velocity $v$ relative to $S$</h3>
+    <p>Denote energies measured in $S'$ by capital letters with a prime: before emission $H_0$, after emission $H_1$ and the total energy of the two light pulses in $S'$ is $L'$. Because energy is conserved in $S'$,</p>
+    <div class="equation">$H_0 = H_1 + L'.$</div>
+
+    <p>We need how the light energy transforms between frames. For a light pulse of energy $E$ moving along the $+x$ direction, the energy in the moving frame is</p>
+    <div class="equation">$E' = \gamma E(1 + v/c)$,</div>
+    <p>and for a pulse moving in the $-x$ direction</p>
+    <div class="equation">$E' = \gamma E(1 - v/c)$,</div>
+    <p>where $\gamma=1/\sqrt{1-v^2/c^2}$. (These follow because light energy is proportional to frequency and the relativistic Doppler formula gives $\nu' = \gamma(1\pm v/c)\nu$.)</p>
+
+    <p>Apply this to the two pulses (each of energy $L/2$ in $S$):</p>
+    <div class="equation">\[ L' = \frac{L}{2}\gamma(1+v/c) + \frac{L}{2}\gamma(1-v/c) = \gamma L. \]</div>
+  </div>
+
+  <div class="step">
+    <h3>Step 3 — Subtract the two conservation relations</h3>
+    <p>From $S$ we had $E_0 - E_1 = L$. From $S'$ we have $H_0 - H_1 = L' = \gamma L$. Subtract the first from the second:</p>
+    <div class="equation">\[ (H_0 - E_0) - (H_1 - E_1) = L(\gamma - 1). \]</div>
+
+    <p>Einstein then interpreted the combination $H - E$ as the kinetic energy of the body in the moving frame (up to an additive constant independent of the body's state). In modern terms, if a body's energy in its rest frame is $E$ and in a frame where it moves with velocity $v$ is $H$, then the difference $H-E$ equals the kinetic energy $K(v)$ plus a possible constant that cancels when taking differences.</p>
+  </div>
+
+  <div class="step">
+    <h3>Step 4 — Connect the difference to a change in kinetic energy</h3>
+    <p>Let the body's masses before and after emission be $m_0$ and $m_1$, and denote their kinetic energies in the $S'$ frame as $K_0$ and $K_1$. Then (up to the same additive constant which cancels):</p>
+    <div class="equation">\[ (H_0 - E_0) - (H_1 - E_1) = K_0 - K_1. \]</div>
+
+    <p>For low speeds (small $v$) the nonrelativistic expression for kinetic energy is a good approximation:</p>
+    <div class="equation">\[ K \approx \tfrac{1}{2}mv^2. \]</div>
+
+    <p>Thus, to first order in $v^2$,</p>
+    <div class="equation">\[ K_0 - K_1 \approx \tfrac{1}{2}(m_0 - m_1)v^2. \]</div>
+
+    <p>Equate this with the right-hand side found earlier:</p>
+    <div class="equation">\[ \tfrac{1}{2}(m_0 - m_1)v^2 \;=\; L(\gamma - 1). \]</div>
+  </div>
+
+  <div class="step">
+    <h3>Step 5 — Expand $\gamma$ for small $v$ and take the limit</h3>
+    <p>For small $v/c$, expand $\gamma$:</p>
+    <div class="equation">\[ \gamma = 1 + \tfrac{1}{2}\frac{v^2}{c^2} + O\big(\tfrac{v^4}{c^4}\big). \]</div>
+    <p>So</p>
+    <div class="equation">\[ L(\gamma - 1) \approx L\cdot \tfrac{1}{2}\frac{v^2}{c^2}. \]</div>
+
+    <p>Plugging into the kinetic-energy relation gives</p>
+    <div class="equation">\[ \tfrac{1}{2}(m_0 - m_1)v^2 \approx L\cdot \tfrac{1}{2}\frac{v^2}{c^2}. \]</div>
+
+    <p>Cancel $\tfrac{1}{2}v^2$ (assume $v\neq 0$), yielding</p>
+    <div class="equation">\[ m_0 - m_1 = \frac{L}{c^2}. \]</div>
+
+    <p>Thus, when the body emits energy $L$ as radiation, its mass decreases by $L/c^2$. Interpreting this as a general correspondence between mass and energy leads to the conclusion that the energy content associated with mass $m$ (at rest) is</p>
+    <div class="equation">\[ E = mc^2. \]</div>
+  </div>
+
+  <div class="step">
+    <h3>Comments and modern viewpoint</h3>
+    <ul>
+      <li>Einstein's original argument used the thought experiment, energy conservation, and the Doppler transformation for light. He expanded to first order in $v^2/c^2$ and concluded the general result from the low-velocity limit.</li>
+      <li>Modern derivations typically use the four-momentum invariant or the relativistic energy formula $E=\gamma mc^2$ which give the result more compactly. But Einstein's 1905 paper is notable for its conceptual clarity and minimal assumptions.</li>
+    </ul>
+  </div>
+
+  <figure style="margin-top:20px">
+    <figcaption><strong>Illustration:</strong> body at rest emits two opposite light pulses</figcaption>
+    <svg viewBox="0 0 600 160" aria-hidden="true">
+      <rect x="0" y="0" width="600" height="160" fill="#fff" />
+      <circle cx="300" cy="80" r="18" fill="#444" />
+      <line x1="318" y1="80" x2="520" y2="80" stroke="#4a90e2" stroke-width="3" marker-end="url(#arr)" />
+      <line x1="282" y1="80" x2="80" y2="80" stroke="#4a90e2" stroke-width="3" marker-end="url(#arr2)" />
+      <defs>
+        <marker id="arr" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 z" fill="#4a90e2"></path>
+        </marker>
+        <marker id="arr2" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 z" fill="#4a90e2"></path>
+        </marker>
+      </defs>
+      <text x="300" y="45" font-size="12" text-anchor="middle" fill="#222">Body (before)</text>
+      <text x="520" y="72" font-size="12" text-anchor="end" fill="#222">Light pulse $L/2$</text>
+      <text x="80" y="72" font-size="12" text-anchor="start" fill="#222">Light pulse $L/2$</text>
+    </svg>
+  </figure>
+
+  <footer>
+    <p>References: Einstein, A. (1905). "Ist die Trägheit eines Körpers von seinem Energieinhalt abhängig?" <em>Annalen der Physik</em>. This page follows the logic of that short paper but uses modern notation for clarity.</p>
+  </footer>
+</body>
+</html>
