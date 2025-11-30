@@ -66,32 +66,7 @@ nav a:hover {
   box-shadow: 0 8px 20px rgba(0,0,0,0.25);
 }
 
-/* --------------------------------------------------
-   1. STYLE FOR NORMAL <button> ELEMENT
-   -------------------------------------------------- */
-button {
-  font-size: clamp(1.1rem, 2vw, 1.6rem); /* slightly smaller */
-  padding: clamp(10px, 1.2vw, 18px) clamp(16px, 2vw, 30px);
-  border-radius: 6px;
-  cursor: pointer;
-  margin: 10px 0;
-
-  /* Different color */
-  background-color: #e3e3e3;   /* light grey */
-  border: 1px solid #999;
-  color: #000;
-
-  transition: background 0.2s, transform 0.2s;
-}
-
-button:hover {
-  background-color: #d4d4d4;
-  transform: scale(1.03);
-}
-
-/* --------------------------------------------------
-   2. STYLE FOR .button (LINK-STYLED BUTTON)
-   -------------------------------------------------- */
+/* Buttons */
 .button {
   display: inline-block;
   padding: 10px 20px;
