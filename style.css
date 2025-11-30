@@ -67,18 +67,17 @@ nav a:hover {
 }
 
 /* --------------------------------------------------
-   1. STYLE FOR NORMAL <button> ELEMENT
+   SMALL BUTTON: <button>
    -------------------------------------------------- */
 button {
-  font-size: clamp(1.1rem, 2vw, 1.6rem); /* slightly smaller */
-  padding: clamp(10px, 1.2vw, 18px) clamp(16px, 2vw, 30px);
+  font-size: clamp(0.9rem, 1.6vw, 1.2rem);  /* noticeably smaller */
+  padding: clamp(6px, 1vw, 10px) clamp(10px, 1.5vw, 16px);
   border-radius: 6px;
   cursor: pointer;
-  margin: 10px 0;
+  margin: 8px 0;
 
-  /* Different color */
-  background-color: #e3e3e3;   /* light grey */
-  border: 1px solid #999;
+  background-color: lightblue;
+  border: 1px solid #00a0a0;
   color: #000;
 
   transition: background 0.2s, transform 0.2s;
@@ -90,24 +89,28 @@ button:hover {
 }
 
 /* --------------------------------------------------
-   2. STYLE FOR .button (LINK-STYLED BUTTON)
+   LARGE BUTTON: .button
    -------------------------------------------------- */
 .button {
-  display: inline-block;
-  padding: 10px 20px;
-  background: linear-gradient(45deg, #ff7e5f, #feb47b);
-  color: white;
-  border: none;
+  font-size: clamp(1.3rem, 2.5vw, 2rem);  /* big, bold */
+  padding: clamp(12px, 1.8vw, 26px) clamp(22px, 3vw, 40px);
   border-radius: 8px;
-  font-weight: bold;
+  display: inline-block;
   text-decoration: none;
   cursor: pointer;
-  transition: transform 0.3s, background 0.3s;
+  margin: 12px 0;
+
+  background: linear-gradient(45deg, #4a90e2, #357ABD);
+  color: white;
+  font-weight: bold;
+  border: none;
+
+  transition: background 0.3s, transform 0.3s;
 }
 
 .button:hover {
-  transform: scale(1.05);
-  background: linear-gradient(45deg, #feb47b, #ff7e5f);
+  transform: scale(1.07);
+  background: linear-gradient(45deg, #357ABD, #4a90e2);
 }
 
 /* Footer */
